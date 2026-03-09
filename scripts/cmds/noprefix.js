@@ -35,8 +35,8 @@ module.exports = {
 				reply: "আমি আপনার জন্য অপেক্ষা করছিলাম! 😄"
 			},
 			{
-				keyullash: ["ullash bai", "Ullash"],
-				reply: "উল্লাস বস ব্যস্ত আছে কি বলবি আমাকে বল ❤️"
+				keyullash: ["naim bai", "Nahidul"],
+				reply: "নাইম বস ব্যস্ত আছে কি বলবি আমাকে বল ❤️"
 			}
 		];
 
