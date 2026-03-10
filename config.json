@@ -31,7 +31,7 @@
   "antiInbox": false,
   "language": "en",
   "nickNameBot": "𝐍𝐎𝐁𝐈𝐓𝐀 𝐆𝐎𝐀𝐓 𝐁𝐎𝐓",
-  "prefix": "!",
+  "prefix": ".",
   "usePrefix": {
     "enable": true,
     "adminUsePrefix": {
@@ -155,7 +155,7 @@
     },
     "reactByRemove": {
       "enable": true,
-      "emoji": "⚠️"
+      "emoji": "☠️"
     },
     "onlyAdminBot": true
   },
