@@ -40,8 +40,12 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   return y;
 }
 
-// 🌟 Welcome text generator
+// 🌟 Welcome text generator (Safe)
 const generateWelcomeMessage = ({ userName, threadName, memberCount }) => {
+  const name = userName || "New Member";
+  const thread = threadName || "this group";
+  const count = memberCount || "?";
+
   return `
 ╭•┄┅═══❁🌺❁═══┅┄•╮
    আসসালামু আলাইকুম-!!🖤
@@ -50,16 +54,16 @@ const generateWelcomeMessage = ({ userName, threadName, memberCount }) => {
 ✨🆆🅴🅻🅻 🅲🅾🅼🅴✨
 
 ❥ 𝐍𝐄𝐖 𝐌𝐄𝐌𝐁𝐄𝐑  
-[ ${userName} ]
+[ ${name} ]
 
 ༆-✿ আপনাকে আমাদের  
-${threadName}
+${thread}
 
 ✨🌺 এর পক্ষ থেকে স্বাগতম 🌺✨
 
 ❤️🫰 ভালোবাসা অবিরাম 🫰❤️
 
-༆-✿ আপনি এই গ্রুপের ${memberCount} নং মেম্বার
+༆-✿ আপনি এই গ্রুপের ${count} নং মেম্বার
 
 ╭•┄┅═══❁🌺❁═══┅┄•╮
    𝗡𝗔𝗜𝗠 𝗜𝗦𝗟𝗔𝗠𝗜𝗖 𝗕𝗢𝗧
@@ -77,6 +81,11 @@ const backgrounds = [
 
 // 🖌️ Welcome image creator
 async function createWelcomeImage(userID, userName, threadName, memberCount) {
+  // Safety defaults
+  userName = userName || "New Member";
+  threadName = threadName || "this group";
+  memberCount = memberCount || "?";
+
   const canvas = createCanvas(1000, 500);
   const ctx = canvas.getContext("2d");
 
