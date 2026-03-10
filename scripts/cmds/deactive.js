@@ -1,6 +1,6 @@
 module.exports = {
   config: {
-    name: "refresh",
+    name: "d",
     version: "1.1",
     author: "Naim",
     role: 1,
