@@ -4,7 +4,7 @@ module.exports.config = {
   hasPermssion: 1,
   credits: "Naim",
   description: "Fast remove deactivated accounts",
-  commandCategory: "group",
+  category: "group", // এখানে commandCategory না, category
   cooldowns: 5
 };
 
