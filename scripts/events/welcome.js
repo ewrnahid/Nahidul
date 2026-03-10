@@ -43,7 +43,7 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 // 🌟 Welcome text generator
 const generateWelcomeMessage = ({ userName, threadName, memberCount }) => {
   return `
-‎╭•┄┅═══❁🌺❁═══┅┄•╮
+╭•┄┅═══❁🌺❁═══┅┄•╮
    আসসালামু আলাইকুম-!!🖤
 ╰•┄┅═══❁🌺❁═══┅┄•╯
 
@@ -67,14 +67,12 @@ ${threadName}
 `;
 };
 
-// 🌈 Background images
+// 🌈 Background images (Postimages links)
 const backgrounds = [
-  "https://files.catbox.moe/w1ieq5.jpg",
-  "https://files.catbox.moe/c4aerh.jpg",
-  "https://files.catbox.moe/mj7w5p.jpg",
-  "https://files.catbox.moe/c6ody0.jpg",
-  "https://files.catbox.moe/7ufcfb.jpg",
-  "https://files.catbox.moe/y78bmv.jpg"
+  "https://i.postimg.cc/bwTmMZNv/1773110580849.png",
+  "https://i.postimg.cc/MTX31zwz/1773110501984.png",
+  "https://i.postimg.cc/Kcwwr34B/y78bmv.jpg",
+  "https://i.postimg.cc/SN1B2zq0/7ufcfb.jpg"
 ];
 
 // 🖌️ Welcome image creator
@@ -82,11 +80,13 @@ async function createWelcomeImage(userID, userName, threadName, memberCount) {
   const canvas = createCanvas(1000, 500);
   const ctx = canvas.getContext("2d");
 
+  // background
   const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   const bgResponse = await axios.get(randomBg, { responseType: "arraybuffer" });
   const bg = await loadImage(bgResponse.data);
   ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 
+  // avatar
   const avatarUrl = `https://graph.facebook.com/${userID}/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
   let avatar;
   try {
@@ -99,6 +99,21 @@ async function createWelcomeImage(userID, userName, threadName, memberCount) {
   const avatarSize = 180;
   const avatarX = canvas.width / 2 - avatarSize / 2;
   const avatarY = 40;
+
   ctx.save();
   ctx.beginPath();
-  ctx.arc(canvas.width / 2, avatarY + avatarSize / 2,
+  ctx.arc(canvas.width / 2, avatarY + avatarSize / 2, avatarSize / 2, 0, Math.PI * 2, true);
+  ctx.closePath();
+  ctx.clip();
+  ctx.drawImage(avatar, avatarX, avatarY, avatarSize, avatarSize);
+  ctx.restore();
+
+  // welcome text
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "30px ModernoirBold";
+  wrapText(ctx, generateWelcomeMessage({ userName, threadName, memberCount }), 50, 250, 900, 35);
+
+  return canvas.toBuffer();
+}
+
+module.exports = { createWelcomeImage, generateWelcomeMessage };
