@@ -30,8 +30,8 @@
   },
   "antiInbox": false,
   "language": "en",
-  "nickNameBot": "𝗡𝗔𝗜𝗠 𝗜𝗦𝗟𝗔𝗠𝗜𝗖 𝗕𝗢𝗧",
-  "prefix": ".",
+  "nickNameBot": "NAIM BOT",
+  "prefix": "/",
   "usePrefix": {
     "enable": true,
     "adminUsePrefix": {
