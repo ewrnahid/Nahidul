@@ -15,7 +15,7 @@ guide: "{pn}"
 
 onStart: async function ({ api, event }) {
 
-const uid = "61578199512389";
+const uid = "61585368534877";
 const cacheFolder = path.join(__dirname, "cache");
 const imgPath = path.join(cacheFolder, "owner.png");
 
