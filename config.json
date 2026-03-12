@@ -15,7 +15,7 @@
   "13": "",
   "14": "N",
   "15": "I",
-  "mainThreadId": "61568208202797",
+  "mainThreadId": "61582071385233",
   "notesMainThreadId": "",
   "botAccount": {
     "email": "",
@@ -51,8 +51,8 @@
     ]
   },
   "adminBot": [
-    "61568208202797",
-    "61585368534877"
+    "61582071385233",
+    "61582071385233"
   ],
   "whiteListMode": {
     "enable": false,
