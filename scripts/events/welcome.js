@@ -95,7 +95,7 @@ module.exports = {
       session2: "noon",
       session3: "afternoon",
       session4: "evening",
-      welcomeMessage:"🕌 Assalamualaikum ☘️│ 🤭 চলে এসেছি আমি পিচ্চি নাঈম এর BOT তোমাদের মাঝে│ 💋 𝐔𝐌𝐌𝐌𝐀𝐇 𝐃𝐀𝐖 𝐍𝐀𝐈𝐌 𝐊𝐄├───────────────│ ✅ 𝗕𝗢𝗧 𝗖𝗢𝗡𝗡𝗘𝗖𝗧𝗘𝗗 𝗦𝗨𝗖𝗖𝗘𝗦𝗙𝗨𝗟│ 🔓 𝗔𝗣𝗣𝗥𝗢𝗩𝗔𝗟 𝗔𝗟𝗟𝗢𝗪 𝗜𝗡 𝗧𝗛𝗜𝗦 𝗚𝗥𝗢𝗨𝗣├───────────────│ 👨‍💻 𝗗𝗘𝗩𝗘𝗟𝗢𝗣𝗘𝗥│ MD NAHIDUL ISLAM NAIM│ 🕌 𝗥𝗘𝗟𝗜𝗚𝗜𝗢𝗡: ISLAM│ 💙 𝗥𝗘𝗟𝗔𝗧𝗜𝗢𝗡𝗦𝗛𝗜𝗣: SINGLE│ 🎂 𝗔𝗚𝗘: 17+│ 📚 𝗪𝗢𝗥𝗞: STUDENT├───────────────│⚙️ 𝗕𝗢𝗧 𝗣𝗥𝗘𝗙𝗜𝗫: %1│ 📜 𝗖𝗢𝗠𝗠𝗔𝗡𝗗 𝗟𝗜𝗦𝗧: %1help",
+      welcomeMessage: "│🕌 Assalamualaikum ☘️\n│🤭 চলে এসেছি আমি পিচ্চি নাঈম এর BOT তোমাদের মাঝে/n│💋 𝐔𝐌𝐌𝐌𝐀𝐇 𝐃𝐀𝐖 𝐍𝐀𝐈𝐌 𝐊𝐄├───────────────│ ✅ 𝗕𝗢𝗧 𝗖𝗢𝗡𝗡𝗘𝗖𝗧𝗘𝗗 𝗦𝗨𝗖𝗖𝗘𝗦𝗙𝗨𝗟│ 🔓 𝗔𝗣𝗣𝗥𝗢𝗩𝗔𝗟 𝗔𝗟𝗟𝗢𝗪 𝗜𝗡 𝗧𝗛𝗜𝗦 𝗚𝗥𝗢𝗨𝗣/n├───────────────│ 👨‍💻 𝗗𝗘𝗩𝗘𝗟𝗢𝗣𝗘𝗥│ MD NAHIDUL ISLAM NAIM│ 🕌 𝗥𝗘𝗟𝗜𝗚𝗜𝗢𝗡: ISLAM│ 💙 𝗥𝗘𝗟𝗔𝗧𝗜𝗢𝗡𝗦𝗛𝗜𝗣: SINGLE│ 🎂 𝗔𝗚𝗘: 17+│ 📚 𝗪𝗢𝗥𝗞: STUDENT/n├───────────────│ 🔗 𝗙𝗔𝗖𝗘𝗕𝗢𝗢𝗞: https://www.facebook.com/NATOKBAZ.NAIM1│ 📱 𝗪𝗛𝗔𝗧𝗦𝗔𝗣𝗣: wa.me/+8801810769343│ 📧 𝗦𝗨𝗣𝗣𝗢𝗥𝗧 𝗘𝗠𝗔𝗜𝗟: ntnaim34@gmail.com/n├───────────────│ ⚙️ 𝗕𝗢𝗧 𝗣𝗥𝗘𝗙𝗜𝗫: %1│ 📜 𝗖𝗢𝗠𝗠𝗔𝗡𝗗 𝗟𝗜𝗦𝗧: %1help╰━━━━━━━━━━━━━━━╯",
       multiple1: "you",
       multiple2: "you guys",
       defaultWelcomeMessage: `Hello {userName}.\nWelcome {multiple} to the chat group: {boxName}\nHave a nice {session} 😊`
