@@ -6,7 +6,7 @@ module.exports = {
 	config: {
 		name: "info",
 		aliases: ["admin", "premiuminfo"],
-		author: "—͟͟͞͞✨ 𝐍𝐚𝐡𝐢𝐝𝐮𝐥 𝐈𝐬𝐥𝐚𝐦 𝐍𝐚𝐢𝐦 ✨",
+		author: "—͟͟͞͞✨sàjú íslàm ✨",
 		role: 0,
 		shortDescription: "Displays NAIM info in Premium Elite Badge style",
 		longDescription: "",
@@ -18,14 +18,14 @@ module.exports = {
 		try {
 			// NAIM info object
 			const NAIMInfo = {
-				name: '𝐍 𝐚 𝐢 𝐦 ッ',
+				name: ッsàjúッ',
 				gender: '𝐌𝐚𝐥𝐞',
 				age: '17',
 				Tiktok: 'unlucky_man0.1',
 				Relationship: 'single',
 				religion: '𝐈𝐬𝐥𝐚𝐦',
-				facebook: 'https://www.facebook.com/NATOKBAZ.NAIM1',
-				UID: 'm.me/61585368534877'
+				facebook: 'https://www.facebook.com/share/1BAkgVTfho/',
+				UID: 'm.me/'
 			};
 
 			// Owner image
@@ -47,8 +47,8 @@ module.exports = {
 —͟͟͞͞✨ 𝐎𝐰𝐧𝐞𝐫 𝐈𝐍𝐅𝐎 ✨ 
 💠━━━━━━━━━━━━━━━━━💠
 
-🖤 𝑵𝒂𝒎𝒆           ➤ ${NAIMInfo.name}  
-🖤 𝑮𝒆𝒏𝒅𝒆𝒓         ➤ ${NAIMInfo.gender} 🙋🏻‍♂️  
+🖤 𝑵𝒂𝒎𝒆           ➤ ${SAJUInfo.sàjú íslàm}  
+🖤 𝑮𝒆𝒏𝒅𝒆𝒓         ➤ ${SAJUInfo.màlé} 🙋🏻‍♂️  
 🖤 𝑼𝑰𝐷           ➤ ${NAIMInfo.UID}  
 🖤 𝑪𝒍𝒂𝒔𝒔         ➤ 𝐎𝐖𝐍𝐄𝐑  
 🖤 𝑻𝒊𝐤𝐓𝐨𝐤       ➤ ${NAIMInfo.Tiktok}  
@@ -57,7 +57,7 @@ module.exports = {
 🖤 𝑭𝐚𝐜𝐞𝐛𝐨𝐨𝐤      ➤ ${NAIMInfo.facebook}  
 
 💎━━━━━━━━━━━━━━━━━━💎
- —͟͟͞͞✨𝐁𝐎𝐓 𝐂𝐄𝐎 𝐍𝐀𝐈𝐌 ✨ 
+ —͟͟͞͞✨𝐁𝐎𝐓 𝐂𝐄𝐎 sàjú ✨ 
 💠━━━━━━━━━━━━━━━━━━💠
 `;
 
@@ -69,7 +69,7 @@ module.exports = {
 
 			// Add reaction
 			if (api.setMessageReaction) {
-				api.setMessageReaction('👑', event.messageID, (err) => {}, true);
+				api.setMessageReaction('❤️'💖🥴🤗🧐🤧😵💖😘, event.messageID, (err) => {}, true);
 			}
 
 			// Clean up image asynchronously
@@ -78,7 +78,7 @@ module.exports = {
 			});
 
 		} catch (error) {
-			console.error('Error in NAIM info command:', error);
+			console.error('Error in sàjú info command:', error);
 			return api.sendMessage('❌ An error occurred while processing the command.', event.threadID);
 		}
 	}
