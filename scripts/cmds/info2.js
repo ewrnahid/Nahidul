@@ -5,7 +5,7 @@ const os = require("os");
 
 module.exports = {
   config: {
-    name: "botinfo",
+    name: "info2",
     author: "Naim | Edit by Tokodori",
     role: 0,
     shortDescription: "Owner + Bot Dashboard",
