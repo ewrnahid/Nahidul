@@ -15,7 +15,7 @@
   "13": "",
   "14": "N",
   "15": "I",
-  "mainThreadId": "6601227983317461",
+  "mainThreadId": "61582071385233",
   "notesMainThreadId": "",
   "botAccount": {
     "email": "",
@@ -30,7 +30,7 @@
   },
   "antiInbox": false,
   "language": "en",
-  "nickNameBot": "𝐒𝐀𝐉𝐔 𝐀𝐑 𝐅𝐌𝐙 𝐁𝐎𝐓💋🥵",
+  "nickNameBot": "𝐒𝐀𝐉𝐔 𝐀𝐑 𝐅𝐌𝐙 𝐁𝐎𝐓🙂❤️",
   "prefix": "/",
   "usePrefix": {
     "enable": true,
@@ -38,7 +38,7 @@
       "enable": true,
       "specificUids": [
         "61582071385233",
-        "61585368534877"
+        
       ]
     }
   },
