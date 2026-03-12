@@ -1,8 +1,8 @@
 module.exports.config = {
   name: "goiadmin",
-  version: "1.0.1",
+  version: "1.0.2",
   permission: 0,
-  credits: "Naim", // Credit ঠিক আছে
+  credits: "Naim",
   description: "Mention handler",
   prefix: true,
   category: "user",
@@ -11,10 +11,9 @@ module.exports.config = {
 };
 
 module.exports.handleEvent = async function({ api, event }) {
-  const ownerID = "61585368534877"; // নাইম বস
+  const ownerID = "61566927465098"; // নাইম বস
   const mentions = event.mentions ? Object.keys(event.mentions) : [];
 
-  // যদি sender নিজে না হয় এবং কেউ ownerID কে mention করে
   if (event.senderID !== ownerID && mentions.includes(ownerID)) {
     const msg = [
       "Mantion_দিস না _নাইম বস এর মন মন ভালো নেই আজকে!💔🥀",
@@ -36,7 +35,8 @@ module.exports.handleEvent = async function({ api, event }) {
   }
 };
 
-// Run function required by GoatBot structure but not used here
-module.exports.run = async function({}) {
-  // এই command handleEvent এর মাধ্যমে কাজ করছে, তাই এখানে কিছু execute হয় না
+// GoatBot structure require করে onStart
+module.exports.onStart = async function({ api }) {
+  // এখানে কিছু execute হবে না, শুধু load এর জন্য লাগছে
+  return;
 };
