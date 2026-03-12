@@ -1,75 +1,58 @@
 const axios = require("axios");
 const fs = require("fs-extra");
 const path = require("path");
-const os = require("os");
 
 module.exports = {
   config: {
     name: "info2",
+    aliases: ["ownerinfo", "personalinfo"],
     author: "Naim | Edit by Tokodori",
     role: 0,
-    shortDescription: "Owner + Bot Dashboard",
-    longDescription: "Show owner info and bot system stats in one dashboard",
+    shortDescription: "Owner Info Only",
+    longDescription: "Show only owner personal info with video",
     category: "system",
     guide: "{pn}"
   },
 
-  onStart: async function ({ api, event, Users, Threads }) {
+  onStart: async function ({ api, event }) {
+    try {
+      const videoURL = "https://files.catbox.moe/o9e2cg.mp4";
+      const cacheFolder = path.join(__dirname, "cache");
+      const videoPath = path.join(cacheFolder, "owner.mp4");
 
-    const videoURL = "https://files.catbox.moe/o9e2cg.mp4";
-    const cacheFolder = path.join(__dirname, "cache");
-    const videoPath = path.join(cacheFolder, "owner.mp4");
+      if (!fs.existsSync(cacheFolder)) fs.mkdirSync(cacheFolder, { recursive: true });
 
-    if (!fs.existsSync(cacheFolder)) fs.mkdirSync(cacheFolder, { recursive: true });
+      // Auto Reaction
+      if (api.setMessageReaction) {
+        api.setMessageReaction("👑", event.messageID, () => {}, true);
+      }
 
-    // Auto Reaction
-    api.setMessageReaction("👑", event.messageID, () => {}, true);
+      // Video download
+      if (!fs.existsSync(videoPath)) {
+        const response = await axios({
+          url: videoURL,
+          method: "GET",
+          responseType: "stream",
+          timeout: 20000
+        });
 
-    if (!fs.existsSync(videoPath)) {
-      const response = await axios({
-        url: videoURL,
-        method: "GET",
-        responseType: "stream"
-      });
-      const writer = fs.createWriteStream(videoPath);
-      response.data.pipe(writer);
-      writer.on("finish", () => sendMsg());
-    } else {
-      sendMsg();
-    }
+        const writer = fs.createWriteStream(videoPath);
+        response.data.pipe(writer);
 
-    async function sendMsg() {
+        writer.on("finish", () => sendMsg());
+        writer.on("error", (err) => {
+          console.error("Video write error:", err);
+          sendMsg(); // Even if video fails, send message
+        });
+      } else {
+        sendMsg();
+      }
 
-      // Bot system info
-      const uptime = process.uptime();
-      const hours = Math.floor(uptime / 3600);
-      const minutes = Math.floor((uptime % 3600) / 60);
-      const seconds = Math.floor(uptime % 60);
-
-      const ping = Date.now() - event.timestamp;
-
-      const allUsers = await Users.getAll();
-      const allThreads = await Threads.getAll();
-
-      const ramUsage = (process.memoryUsage().rss / 1024 / 1024).toFixed(2);
-
-      // CPU usage bar
-      const cpus = os.cpus();
-      const cpuLoad = cpus.reduce((acc, cpu) => {
-        const total = Object.values(cpu.times).reduce((a, b) => a + b, 0);
-        return acc + (1 - cpu.times.idle / total);
-      }, 0) / cpus.length;
-
-      const cpuPercent = Math.round(cpuLoad * 100);
-      const totalBars = 20;
-      const filledBars = Math.round(cpuPercent / 100 * totalBars);
-      const emptyBars = totalBars - filledBars;
-      const cpuBar = `|${'█'.repeat(filledBars)}${'░'.repeat(emptyBars)}| ${cpuPercent}%`;
-
-      // Dashboard message using your box layout
-      const msg = `
+      async function sendMsg() {
+        // Personal information only
+        const msg = `
 ───────────────────╮
-      👑 𝙊𝙒𝙉𝙀𝙍 𝙋𝙍𝙊𝙁𝙄𝙇𝙀 👑
+      👑 OWNER PROFILE 👑
 ╰───────────────────────╯
 
 ╔══════════════════════╗
@@ -102,24 +85,18 @@ module.exports = {
 ┃ 📍 Current Address
 ┃ AUKPARA, SAVAR, DHAKA
 ╚══════════════════════╝
-
-╔══════════════════════╗
-┃ BOT SYSTEM
-┃ Ping       : ${ping} ms
-┃ Uptime     : ${hours}h ${minutes}m ${seconds}s
-┃ Users      : ${allUsers.length}
-┃ Groups     : ${allThreads.length}
-┃ RAM Usage  : ${ramUsage} MB
-┃ CPU Usage  : ${cpuBar}
-╚══════════════════════╝
 `;
 
-      api.sendMessage({
-        body: msg,
-        attachment: fs.createReadStream(videoPath)
-      }, event.threadID, event.messageID);
+        // Send message with video
+        api.sendMessage({
+          body: msg,
+          attachment: fs.existsSync(videoPath) ? fs.createReadStream(videoPath) : null
+        }, event.threadID, event.messageID);
+      }
 
-    } // end sendMsg
-
-  } // end onStart
-}; // end module.exports
+    } catch (error) {
+      console.error("Error in info2 command:", error);
+      api.sendMessage("❌ An error occurred while sending owner info.", event.threadID);
+    }
+  }
+};
