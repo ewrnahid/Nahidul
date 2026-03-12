@@ -30,40 +30,40 @@
   },
   "antiInbox": false,
   "language": "en",
-  "nickNameBot": "𝐍𝐀𝐈𝐌 𝐀𝐑 𝐅𝐌𝐙 𝐁𝐎𝐓💋🥵",
+  "nickNameBot": "𝐒𝐀𝐉𝐔 𝐀𝐑 𝐅𝐌𝐙 𝐁𝐎𝐓💋🥵",
   "prefix": "/",
   "usePrefix": {
     "enable": true,
     "adminUsePrefix": {
       "enable": true,
       "specificUids": [
-        "61585368534877",
-        ""
+        "61582071385233",
+        "61585368534877"
       ]
     }
   },
   "adminOnly": {
     "enable": false,
     "ignoreCommand": [
-      "61585368534877",
-      ""
+      "61582071385233",
+      "61585368534877"
     ]
   },
   "adminBot": [
-    "61585368534877",
-    ""
+    "61582071385233",
+    "61585368534877"
   ],
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [
-      "61585368534877",
-      ""
+      "61582071385233",
+      "61585368534877"
     ]
   },
   "whiteListModeThread": {
     "enable": false,
     "whiteListThreadIds": [
-      "61585368534877",
+      "61582071385233",
       ""
     ]
   },
