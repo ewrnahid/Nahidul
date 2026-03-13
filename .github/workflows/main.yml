@@ -28,5 +28,10 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Update FCA
+        run: |
+          npm uninstall cyber-bot-fca
+          npm install cyber-bot-fca@latest
+
       - name: Run Bot
         run: npm start
