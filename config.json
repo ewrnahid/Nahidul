@@ -38,7 +38,7 @@
       "enable": true,
       "specificUids": [
         "61585368534877",
-        ""
+        "61579674055924"
       ]
     }
   },
@@ -46,25 +46,25 @@
     "enable": false,
     "ignoreCommand": [
       "61585368534877",
-      ""
+      "61579674055924"
     ]
   },
   "adminBot": [
     "61585368534877",
-    ""
+    "61579674055924"
   ],
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [
       "61585368534877",
-      ""
+      "61579674055924"
     ]
   },
   "whiteListModeThread": {
     "enable": false,
     "whiteListThreadIds": [
       "61585368534877",
-      ""
+      "61579674055924"
     ]
   },
   "showLoginTitle": false,
