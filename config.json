@@ -37,8 +37,8 @@
     "adminUsePrefix": {
       "enable": true,
       "specificUids": [
-        "61585368534877",
-        "61579674055924"
+        "61566927465098",
+        "61585368534877"
       ]
     }
   },
@@ -46,25 +46,25 @@
     "enable": false,
     "ignoreCommand": [
       "61585368534877",
-      "61579674055924"
+      "61566927465098"
     ]
   },
   "adminBot": [
     "61585368534877",
-    "61579674055924"
+    "61566927465098"
   ],
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [
       "61585368534877",
-      "61579674055924"
+      "61566927465098"
     ]
   },
   "whiteListModeThread": {
     "enable": false,
     "whiteListThreadIds": [
       "61585368534877",
-      "61579674055924"
+      "61566927465098"
     ]
   },
   "showLoginTitle": false,
@@ -149,7 +149,7 @@
     "reactByUnsend": {
       "enable": true,
       "emojis": [
-        "👍",
+        "🤬",
         "😤"
       ]
     },
