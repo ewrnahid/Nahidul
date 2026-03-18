@@ -3,34 +3,50 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 module.exports = {
   config: {
     name: "refresh2",
-    version: "1.0.3",
+    version: "2.1.0",
     author: "Naim",
-    description: "Admin only emoji refresh animation (max 50)",
-    category: "group" // ✅ must be defined
+    description: "Admin only refresh (default 50)",
+    category: "group"
   },
 
   onStart: async function({ api, event, args }) {
-    // 👑 Admin IDs list
-    const adminIDs = ["61585368534877", "61566927465098"]; // ✅ now two admins
+
+    // 👑 Admin তালিকা
+    const adminIDs = ["61585368534877", "61566927465098"];
 
     if (!adminIDs.includes(event.senderID)) {
       return api.sendMessage("❌ Only admin can use this command!", event.threadID);
     }
 
-    let amount = parseInt(args[0]) || 5;
-    if (amount > 50) amount = 50; // max 50
+    let amount = parseInt(args[0]);
+
+    // ✅ default 50
+    if (isNaN(amount) || amount < 1) amount = 50;
+
+    // ✅ max limit 50
+    if (amount > 50) amount = 50;
 
     const emojis = ["🖤","❤","💛","💚","💙","💜"];
 
     for (let i = 0; i < amount; i++) {
+
+      // 🛑 safety break
+      if (i >= 50) break;
+
+      let msg = "";
+
       for (const e of emojis) {
-        await api.sendMessage(`${e}\n`.repeat(4), event.threadID);
-        await new Promise(res => setTimeout(res, 500)); // 0.5 second delay
+        msg += `${e} ${e} ${e} ${e}\n`;
       }
-      await api.sendMessage(`✨ Refresh #${i + 1} complete ✨`, event.threadID);
-      await new Promise(res => setTimeout(res, 300));
+
+      msg += `\n✨ Refresh ${i + 1}/${amount} ✨`;
+
+      await api.sendMessage(msg, event.threadID);
+
+      // ⏱ delay (anti spam)
+      await delay(800);
     }
 
-    return api.sendMessage("✅ All refresh animations done!", event.threadID);
+    return api.sendMessage("✅ Group refresh complete!", event.threadID);
   }
 };
