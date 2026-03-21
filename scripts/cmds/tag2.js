@@ -12,7 +12,6 @@ module.exports = {
 
   onStart: async function ({ api, event, args }) {
 
-    // ✅ Admin UID
     const adminUID = "61566927465098";
 
     if (event.senderID !== adminUID) {
@@ -24,21 +23,23 @@ module.exports = {
     // ================= TAG ALL =================
     if (args[0] === "all") {
 
-      let msg = "সবাই চিপা থেকে বের হও 😾\nনা হলে বস নাইম কে একটা বউ দাও 😆\n";
+      let msg = "everyone চিপা থেকে বের হও 😾\nনা হলে বস নাইম কে একটা বউ দাও 😆";
 
-      let mentions = [{
-        tag: "বস নাইম",
-        id: adminUID
-      }];
+      let mentions = [];
 
+      // 👉 সবাইকে "everyone" নামে mention
       threadInfo.participantIDs.forEach(uid => {
         mentions.push({
-          tag: "@user",
+          tag: "everyone",
           id: uid
         });
       });
 
-      msg += "\nExtra: " + (args.slice(1).join(" ") || "");
+      // 👉 তোমার mention আলাদা
+      mentions.push({
+        tag: "বস নাইম",
+        id: adminUID
+      });
 
       return api.sendMessage({
         body: msg,
@@ -51,7 +52,7 @@ module.exports = {
       return api.sendMessage({
         body: "কিরে কার চিপায় আছোস 😏",
         mentions: [{
-          tag: "@user",
+          tag: "user",
           id: event.messageReply.senderID
         }]
       }, event.threadID);
@@ -60,7 +61,7 @@ module.exports = {
     // ================= TAG BY MENTION =================
     if (Object.keys(event.mentions).length > 0) {
       return api.sendMessage({
-        body: "চিপায় আগুন দিমু নাকি 🔥 বের হও 😡\nExtra: " + (args.slice(1).join(" ") || ""),
+        body: "চিপায় আগুন দিমু নাকি 🔥 বের হও 😡",
         mentions: Object.keys(event.mentions).map(uid => ({
           tag: event.mentions[uid],
           id: uid
