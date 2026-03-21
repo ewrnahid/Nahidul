@@ -1,7 +1,7 @@
 module.exports = {
   config: {
     name: "tag2",
-    version: "4.2",
+    version: "4.3",
     author: "Naim",
     countDown: 5,
     role: 1,
@@ -25,7 +25,7 @@ module.exports = {
       let mentions = [];
       let body = "";
 
-      // Everyone mention (names in body)
+      // Everyone mention
       for (const uid of participantIDs) {
         const info = await api.getUserInfo(uid);
         const name = info[uid].name;
@@ -36,7 +36,7 @@ module.exports = {
       // Admin mention last
       const adminInfo = await api.getUserInfo(adminUID);
       const adminName = adminInfo[adminUID].name;
-      body += `\nনা হলে ${adminName} কে একটা বউ দাও 😆`;
+      body += `চিপা থেকে বের ডহও🤬😾\nনা হলে @${adminName} কে একটা বউ দাও 😆`;
       mentions.push({ tag: adminName, id: adminUID });
 
       return api.sendMessage({
