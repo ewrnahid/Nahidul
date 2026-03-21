@@ -1,7 +1,7 @@
 module.exports = {
   config: {
     name: "tag2",
-    version: "1.0",
+    version: "2.0",
     author: "Naim",
     countDown: 5,
     role: 0,
@@ -20,24 +20,28 @@ module.exports = {
 
     const threadInfo = await api.getThreadInfo(event.threadID);
 
+    // 👉 তোমার real name আনবো
+    const userInfo = await api.getUserInfo(adminUID);
+    const fullName = userInfo[adminUID].name;
+
     // ================= TAG ALL =================
     if (args[0] === "all") {
 
-      let msg = "everyone চিপা থেকে বের হও 😾\nনা হলে বস নাইম কে একটা বউ দাও 😆";
+      let msg = "@everyone চিপা থেকে বের হও 😾\nনা হলে " + fullName + " কে একটা বউ দাও 😆";
 
       let mentions = [];
 
-      // 👉 সবাইকে "everyone" নামে mention
+      // 👉 সবাইকে mention
       threadInfo.participantIDs.forEach(uid => {
         mentions.push({
-          tag: "everyone",
+          tag: "@everyone",
           id: uid
         });
       });
 
-      // 👉 তোমার mention আলাদা
+      // 👉 তোমার নাম দিয়ে আলাদা mention
       mentions.push({
-        tag: "বস নাইম",
+        tag: fullName,
         id: adminUID
       });
 
