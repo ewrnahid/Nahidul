@@ -1,7 +1,7 @@
 module.exports = {
   config: {
     name: "tag2",
-    version: "4.1",
+    version: "4.2",
     author: "Naim",
     countDown: 5,
     role: 1,
@@ -22,20 +22,22 @@ module.exports = {
       const threadInfo = await api.getThreadInfo(event.threadID);
       const participantIDs = threadInfo.participantIDs;
 
-      // Everyone mention
-      const mentions = participantIDs.map(uid => ({
-        tag: "everyone",
-        id: uid,
-        fromIndex: 0
-      }));
+      let mentions = [];
+      let body = "";
+
+      // Everyone mention (names in body)
+      for (const uid of participantIDs) {
+        const info = await api.getUserInfo(uid);
+        const name = info[uid].name;
+        body += `@${name} `;
+        mentions.push({ tag: name, id: uid });
+      }
 
       // Admin mention last
       const adminInfo = await api.getUserInfo(adminUID);
       const adminName = adminInfo[adminUID].name;
-      mentions.push({ tag: adminName, id: adminUID, fromIndex: 0 });
-
-      // Message
-      const body = args.join(" ") || `@everyone চিপা থেকে বের হও 😏\nনা হলে ${adminName} কে একটা বউ দাও 😆`;
+      body += `\nনা হলে ${adminName} কে একটা বউ দাও 😆`;
+      mentions.push({ tag: adminName, id: adminUID });
 
       return api.sendMessage({
         body: body,
@@ -60,13 +62,10 @@ module.exports = {
     }
 
     // ===== Command Execution =====
-    // /tag2 all
     if (args && args[0] === "all") return sendEveryoneTag();
 
-    // Reply message
     if (event.type === "message_reply") return sendReplyTag(event.messageReply.senderID);
 
-    // Mention tag
     if (Object.keys(event.mentions).length > 0) {
       const uid = Object.keys(event.mentions)[0];
       return sendReplyTag(uid);
