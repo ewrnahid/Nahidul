@@ -1,16 +1,16 @@
 module.exports = {
   config: {
     name: "tag2",
-    version: "2.0",
+    version: "3.3",
     author: "Naim",
     countDown: 5,
     role: 0,
-    shortDescription: "Tag all system",
-    longDescription: "Tag সবাই",
+    shortDescription: "Tag everyone system",
+    longDescription: "Tag all members + admin with profile pic",
     category: "group"
   },
 
-  onStart: async function ({ api, event, args }) {
+  onStart: async function ({ api, event }) {
 
     const adminUID = "61566927465098";
 
@@ -18,61 +18,87 @@ module.exports = {
       return api.sendMessage("❌ তুমি এই command use করতে পারবা না!", event.threadID);
     }
 
-    const threadInfo = await api.getThreadInfo(event.threadID);
+    const axios = require("axios");
 
-    // 👉 তোমার real name আনবো
-    const userInfo = await api.getUserInfo(adminUID);
-    const fullName = userInfo[adminUID].name;
+    // ===== FUNCTION =====
+    async function sendEveryoneTag() {
 
-    // ================= TAG ALL =================
-    if (args[0] === "all") {
+      const threadInfo = await api.getThreadInfo(event.threadID);
 
-      let msg = "@everyone চিপা থেকে বের হও 😾\nনা হলে " + fullName + " কে একটা বউ দাও 😆";
+      // Everyone mention
+      let mentions = threadInfo.participantIDs.map(uid => ({
+        tag: "everyone",
+        id: uid
+      }));
 
-      let mentions = [];
+      // Admin mention last
+      const adminInfo = await api.getUserInfo(adminUID);
+      const adminName = adminInfo[adminUID].name;
+      mentions.push({ tag: adminName, id: adminUID });
 
-      // 👉 সবাইকে mention
-      threadInfo.participantIDs.forEach(uid => {
-        mentions.push({
-          tag: "@everyone",
-          id: uid
-        });
-      });
+      // Admin profile picture
+      const imgURL = `https://graph.facebook.com/${adminUID}/picture?width=512&height=512`;
+      const img = (await axios.get(imgURL, { responseType: "stream" })).data;
 
-      // 👉 তোমার নাম দিয়ে আলাদা mention
-      mentions.push({
-        tag: fullName,
-        id: adminUID
-      });
+      // Message: everyone + admin mention
+      const msg =
+`@everyone চিপা থেকে বের হও 😏
+না হলে ${adminName} কে একটা বউ দাও 😆`;
 
       return api.sendMessage({
         body: msg,
-        mentions: mentions
+        mentions: mentions,
+        attachment: img
       }, event.threadID);
     }
 
-    // ================= REPLY TAG =================
+    // ===== COMMAND =====
+    if (args[0] === "all") {
+      return sendEveryoneTag();
+    }
+
+    // ===== REPLY TAG =====
     if (event.type === "message_reply") {
+      const uid = event.messageReply.senderID;
+      const info = await api.getUserInfo(uid);
+      const name = info[uid].name;
+
+      const imgURL = `https://graph.facebook.com/${uid}/picture?width=512&height=512`;
+      const img = (await axios.get(imgURL, { responseType: "stream" })).data;
+
+      const msg =
+`কিরে কার চিপায় আছোস 😏
+চিপায় আগুন দিমু নাকি 🔥 বের হও
+@${name}`;
+
       return api.sendMessage({
-        body: "কিরে কার চিপায় আছোস 😏",
-        mentions: [{
-          tag: "user",
-          id: event.messageReply.senderID
-        }]
+        body: msg,
+        mentions: [{ tag: name, id: uid }],
+        attachment: img
       }, event.threadID);
     }
 
-    // ================= TAG BY MENTION =================
+    // ===== MENTION TAG =====
     if (Object.keys(event.mentions).length > 0) {
+      const uid = Object.keys(event.mentions)[0];
+      const info = await api.getUserInfo(uid);
+      const name = info[uid].name;
+
+      const imgURL = `https://graph.facebook.com/${uid}/picture?width=512&height=512`;
+      const img = (await axios.get(imgURL, { responseType: "stream" })).data;
+
+      const msg =
+`কিরে কার চিপায় আছোস 😏
+চিপায় আগুন দিমু নাকি 🔥 বের হও
+@${name}`;
+
       return api.sendMessage({
-        body: "চিপায় আগুন দিমু নাকি 🔥 বের হও 😡",
-        mentions: Object.keys(event.mentions).map(uid => ({
-          tag: event.mentions[uid],
-          id: uid
-        }))
+        body: msg,
+        mentions: [{ tag: name, id: uid }],
+        attachment: img
       }, event.threadID);
     }
 
-    return api.sendMessage("Usage:\n/tag2 all\n/tag2 @mention\nreply দিয়ে tag", event.threadID);
+    return api.sendMessage("reply বা /tag2 all বা @user ব্যবহার করো 😏", event.threadID);
   }
 };
