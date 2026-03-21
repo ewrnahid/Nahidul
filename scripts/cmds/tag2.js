@@ -1,13 +1,21 @@
 module.exports = {
-  name: "tag2",
-  description: "Tag system with custom messages",
-  author: "Naim",
-
-  adminUIDs: ["61566927465098"],
+  config: {
+    name: "tag2",
+    version: "1.0",
+    author: "Naim",
+    countDown: 5,
+    role: 0,
+    shortDescription: "Tag all system",
+    longDescription: "Tag সবাই",
+    category: "group"
+  },
 
   onStart: async function ({ api, event, args }) {
 
-    if (!this.adminUIDs.includes(event.senderID)) {
+    // ✅ Admin UID
+    const adminUID = "61566927465098";
+
+    if (event.senderID !== adminUID) {
       return api.sendMessage("❌ তুমি এই command use করতে পারবা না!", event.threadID);
     }
 
@@ -16,12 +24,11 @@ module.exports = {
     // ================= TAG ALL =================
     if (args[0] === "all") {
 
-      let msg = "সবাই চিপা থেকে বের হও 😾\nনা হলে ";
-      msg += "বস নাইম কে একটা বউ দাও 😆\n"; // 👈 text
+      let msg = "সবাই চিপা থেকে বের হও 😾\nনা হলে বস নাইম কে একটা বউ দাও 😆\n";
 
       let mentions = [{
         tag: "বস নাইম",
-        id: "61566927465098" // 👈 তোমার UID mention
+        id: adminUID
       }];
 
       threadInfo.participantIDs.forEach(uid => {
@@ -61,6 +68,6 @@ module.exports = {
       }, event.threadID);
     }
 
-    return api.sendMessage("Usage:\n/tag all\n/tag @mention\nreply দিয়ে tag", event.threadID);
+    return api.sendMessage("Usage:\n/tag2 all\n/tag2 @mention\nreply দিয়ে tag", event.threadID);
   }
 };
