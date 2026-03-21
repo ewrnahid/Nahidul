@@ -1,101 +1,92 @@
 module.exports = {
   config: {
     name: "tag2",
-    version: "3.4",
+    version: "3.7",
     author: "Naim",
     countDown: 5,
-    role: 0,
-    shortDescription: "Tag everyone system",
-    longDescription: "Tag all members + admin with profile pic",
+    role: 1,
+    shortDescription: "Tag everyone + admin with direct audio",
+    longDescription: "Everyone mention + admin mention last + direct audio stream",
     category: "group"
   },
 
-  // ✅ args added here
   onStart: async function ({ api, event, args }) {
-
+    const axios = require("axios");
     const adminUID = "61566927465098";
 
     if (event.senderID !== adminUID) {
       return api.sendMessage("❌ তুমি এই command use করতে পারবা না!", event.threadID);
     }
 
-    const axios = require("axios");
-
-    // ===== FUNCTION =====
-    async function sendEveryoneTag() {
+    // ===== Everyone mention + admin last =====
+    async function sendEveryone() {
       const threadInfo = await api.getThreadInfo(event.threadID);
+      const participantIDs = threadInfo.participantIDs;
 
-      // Everyone mention
-      let mentions = threadInfo.participantIDs.map(uid => ({
+      const mentions = participantIDs.map(uid => ({
         tag: "everyone",
-        id: uid
+        id: uid,
+        fromIndex: 0
       }));
 
-      // Admin mention last
       const adminInfo = await api.getUserInfo(adminUID);
       const adminName = adminInfo[adminUID].name;
-      mentions.push({ tag: adminName, id: adminUID });
+      mentions.push({ tag: adminName, id: adminUID, fromIndex: 0 });
 
-      // Admin profile picture
-      const imgURL = `https://graph.facebook.com/${adminUID}/picture?width=512&height=512`;
-      const img = (await axios.get(imgURL, { responseType: "stream" })).data;
+      const msg = args.join(" ") || `@everyone চিপা থেকে বের হও 😏\nনা হলে ${adminName} কে একটা বউ দাও 😆`;
 
-      // Message: everyone + admin mention
-      const msg =
-`@everyone চিপা থেকে বের হও 😏
-না হলে ${adminName} কে একটা বউ দাও 😆`;
+      const audioURL = "https://www.myinstants.com/media/sounds/technoloyia-technologia-tecnologia-84060.mp3";
+      const response = await axios.get(audioURL, { responseType: "stream" });
 
       return api.sendMessage({
         body: msg,
         mentions: mentions,
-        attachment: img
+        attachment: response.data
       }, event.threadID);
     }
 
-    // ===== COMMAND =====
-    if (args && args[0] === "all") { // ✅ check args
-      return sendEveryoneTag();
-    }
+    // ===== Command: /tag2 all =====
+    if (args && args[0] === "all") return sendEveryone();
 
-    // ===== REPLY TAG =====
+    // ===== Reply tag =====
     if (event.type === "message_reply") {
       const uid = event.messageReply.senderID;
       const info = await api.getUserInfo(uid);
       const name = info[uid].name;
 
-      const imgURL = `https://graph.facebook.com/${uid}/picture?width=512&height=512`;
-      const img = (await axios.get(imgURL, { responseType: "stream" })).data;
-
       const msg =
 `কিরে কার চিপায় আছোস 😏
 চিপায় আগুন দিমু নাকি 🔥 বের হও
 @${name}`;
 
+      const audioURL = "https://www.myinstants.com/media/sounds/technoloyia-technologia-tecnologia-84060.mp3";
+      const response = await axios.get(audioURL, { responseType: "stream" });
+
       return api.sendMessage({
         body: msg,
         mentions: [{ tag: name, id: uid }],
-        attachment: img
+        attachment: response.data
       }, event.threadID);
     }
 
-    // ===== MENTION TAG =====
+    // ===== Mention tag =====
     if (Object.keys(event.mentions).length > 0) {
       const uid = Object.keys(event.mentions)[0];
       const info = await api.getUserInfo(uid);
       const name = info[uid].name;
 
-      const imgURL = `https://graph.facebook.com/${uid}/picture?width=512&height=512`;
-      const img = (await axios.get(imgURL, { responseType: "stream" })).data;
-
       const msg =
 `কিরে কার চিপায় আছোস 😏
 চিপায় আগুন দিমু নাকি 🔥 বের হও
 @${name}`;
 
+      const audioURL = "https://www.myinstants.com/media/sounds/technoloyia-technologia-tecnologia-84060.mp3";
+      const response = await axios.get(audioURL, { responseType: "stream" });
+
       return api.sendMessage({
         body: msg,
         mentions: [{ tag: name, id: uid }],
-        attachment: img
+        attachment: response.data
       }, event.threadID);
     }
 
