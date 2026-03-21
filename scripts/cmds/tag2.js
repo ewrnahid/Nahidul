@@ -1,25 +1,23 @@
 module.exports = {
   config: {
     name: "tag2",
-    version: "4.0",
+    version: "4.1",
     author: "Naim",
     countDown: 5,
     role: 1,
     shortDescription: "Tag everyone + admin + reply support",
-    longDescription: "Everyone mention + admin mention last + reply/mention support + optional audio/image",
+    longDescription: "Everyone mention + admin mention last + reply/mention support without audio",
     category: "group"
   },
 
   onStart: async function ({ api, event, args }) {
-    const axios = require("axios");
     const adminUID = "61566927465098";
 
-    // Only admin can use this command
     if (event.senderID !== adminUID) {
       return api.sendMessage("❌ তুমি এই command use করতে পারবা না!", event.threadID);
     }
 
-    // ===== Send Everyone + Admin Tag =====
+    // ===== Everyone + Admin Tag =====
     async function sendEveryoneTag() {
       const threadInfo = await api.getThreadInfo(event.threadID);
       const participantIDs = threadInfo.participantIDs;
@@ -39,14 +37,9 @@ module.exports = {
       // Message
       const body = args.join(" ") || `@everyone চিপা থেকে বের হও 😏\nনা হলে ${adminName} কে একটা বউ দাও 😆`;
 
-      // Optional: Direct audio or Imgur image
-      const audioURL = "https://www.myinstants.com/media/sounds/technoloyia-technologia-tecnologia-84060.mp3";
-      const response = await axios.get(audioURL, { responseType: "stream" });
-
       return api.sendMessage({
         body: body,
-        mentions: mentions,
-        attachment: response.data // Audio stream, no local save
+        mentions: mentions
       }, event.threadID);
     }
 
@@ -60,26 +53,18 @@ module.exports = {
 চিপায় আগুন দিমু নাকি 🔥 বের হও
 @${name}`;
 
-      const audioURL = "https://www.myinstants.com/media/sounds/technoloyia-technologia-tecnologia-84060.mp3";
-      const response = await axios.get(audioURL, { responseType: "stream" });
-
       return api.sendMessage({
         body: msg,
-        mentions: [{ tag: name, id: uid }],
-        attachment: response.data
+        mentions: [{ tag: name, id: uid }]
       }, event.threadID);
     }
 
     // ===== Command Execution =====
     // /tag2 all
-    if (args && args[0] === "all") {
-      return sendEveryoneTag();
-    }
+    if (args && args[0] === "all") return sendEveryoneTag();
 
     // Reply message
-    if (event.type === "message_reply") {
-      return sendReplyTag(event.messageReply.senderID);
-    }
+    if (event.type === "message_reply") return sendReplyTag(event.messageReply.senderID);
 
     // Mention tag
     if (Object.keys(event.mentions).length > 0) {
