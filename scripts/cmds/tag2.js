@@ -1,7 +1,7 @@
 module.exports = {
   config: {
     name: "tag2",
-    version: "4.3",
+    version: "4.4",
     author: "Naim",
     countDown: 5,
     role: 1,
@@ -12,6 +12,7 @@ module.exports = {
 
   onStart: async function ({ api, event, args }) {
     const adminUID = "61566927465098";
+    const adminDisplayName = "নাইম বস"; // Body-তে দেখাবে
 
     if (event.senderID !== adminUID) {
       return api.sendMessage("❌ তুমি এই command use করতে পারবা না!", event.threadID);
@@ -34,10 +35,8 @@ module.exports = {
       }
 
       // Admin mention last
-      const adminInfo = await api.getUserInfo(adminUID);
-      const adminName = adminInfo[adminUID].name;
-      body += `চিপা থেকে বের হও🤬😾\nনা হলে `@${adminName} কে একটা বউ দাও 😆`;
-      mentions.push({ tag: adminName, id: adminUID });
+      body += `চিপা থেকে বের হও\nনা হলে @${adminDisplayName} কে একটা বউ দাও 😆`;
+      mentions.push({ tag: adminDisplayName, id: adminUID });
 
       return api.sendMessage({
         body: body,
