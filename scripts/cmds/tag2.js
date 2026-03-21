@@ -36,7 +36,7 @@ module.exports = {
       // Admin mention last
       const adminInfo = await api.getUserInfo(adminUID);
       const adminName = adminInfo[adminUID].name;
-      body += `চিপা থেকে বের ডহও🤬😾\nনা হলে @${adminName} কে একটা বউ দাও 😆`;
+      body += `চিপা থেকে বের হও🤬😾\nনা হলে `@${adminName} কে একটা বউ দাও 😆`;
       mentions.push({ tag: adminName, id: adminUID });
 
       return api.sendMessage({
