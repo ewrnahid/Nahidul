@@ -1,7 +1,7 @@
 module.exports = {
   config: {
     name: "tag2",
-    version: "3.3",
+    version: "3.4",
     author: "Naim",
     countDown: 5,
     role: 0,
@@ -10,7 +10,8 @@ module.exports = {
     category: "group"
   },
 
-  onStart: async function ({ api, event }) {
+  // ✅ args added here
+  onStart: async function ({ api, event, args }) {
 
     const adminUID = "61566927465098";
 
@@ -22,7 +23,6 @@ module.exports = {
 
     // ===== FUNCTION =====
     async function sendEveryoneTag() {
-
       const threadInfo = await api.getThreadInfo(event.threadID);
 
       // Everyone mention
@@ -53,7 +53,7 @@ module.exports = {
     }
 
     // ===== COMMAND =====
-    if (args[0] === "all") {
+    if (args && args[0] === "all") { // ✅ check args
       return sendEveryoneTag();
     }
 
