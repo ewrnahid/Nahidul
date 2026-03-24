@@ -7,7 +7,7 @@ module.exports.config = {
   hasPermission: 0,
   credits: "Naim ❤️",
   description: "Real Couple DP + Random Love SMS",
-  commandCategory: "fun",
+  commandCategory: "fun", // ✅ Must be exact string
   usages: "/love3 @mention",
   cooldowns: 5
 };
@@ -22,7 +22,6 @@ module.exports.run = async function({ api, event }) {
   const name = event.mentions[mentionID];
   const mentions = [{ id: mentionID, tag: name }];
 
-  // 20+ lovely messages
   const messages = [
     `💖 ${name}, তুমি আমার জীবনের সবচেয়ে সুন্দর অনুভূতি...`,
     `🌸 ${name}, তোমাকে ভাবলেই মনটা শান্ত হয়ে যায়...`,
@@ -47,32 +46,18 @@ module.exports.run = async function({ api, event }) {
   ];
 
   try {
-    // Profile pics
     const avatar1 = `https://graph.facebook.com/${senderID}/picture?width=512&height=512`;
     const avatar2 = `https://graph.facebook.com/${mentionID}/picture?width=512&height=512`;
-
-    // Couple DP API
     const imgUrl = `https://api.popcat.xyz/couple?avatar1=${encodeURIComponent(avatar1)}&avatar2=${encodeURIComponent(avatar2)}`;
+
     const path = __dirname + "/cache/couple.png";
-
-    const response = await axios({
-      url: imgUrl,
-      method: "GET",
-      responseType: "stream"
-    });
-
+    const response = await axios({ url: imgUrl, method: "GET", responseType: "stream" });
     const writer = fs.createWriteStream(path);
     response.data.pipe(writer);
 
     writer.on("finish", () => {
-      // Random message
       const msg = messages[Math.floor(Math.random() * messages.length)];
-
-      api.sendMessage({
-        body: msg,
-        mentions,
-        attachment: fs.createReadStream(path)
-      }, event.threadID, () => fs.unlinkSync(path));
+      api.sendMessage({ body: msg, mentions, attachment: fs.createReadStream(path) }, event.threadID, () => fs.unlinkSync(path));
     });
 
     writer.on("error", () => {
