@@ -12,7 +12,7 @@ module.exports.config = {
   cooldowns: 5
 };
 
-module.exports.run = async function({ api, event }) {
+module.exports.onStart = async function({ api, event }) {
   const mentions = Object.keys(event.mentions);
 
   if (mentions.length === 0) {
