@@ -8,7 +8,7 @@ module.exports.config = {
   credits: "Naim ❤️",
   description: "Real Couple DP Image + Love SMS",
 commandCategory: "fun"
-  usages: "/love3 @mention",
+  usages: "/love @mention",
   cooldowns: 5
 };
 
