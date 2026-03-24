@@ -3,77 +3,68 @@ const fs = require("fs-extra");
 
 module.exports.config = {
   name: "love3",
-  version: "3.1.0",
+  version: "1.0.0",
   hasPermission: 0,
   credits: "Naim ❤️",
-  description: "Real Couple DP Image + Love SMS",
-commandCategory: "fun",
-  usages: "/love @mention",
+  description: "Single mention love message + DP",
+  category: "fun",
+  usages: "/love3 @mention",
   cooldowns: 5
 };
 
 module.exports.run = async function({ api, event }) {
+  const mentions = Object.keys(event.mentions);
 
-  const mentionID = Object.keys(event.mentions)[0];
-  if (!mentionID) {
-    return api.sendMessage("👉 যাকে love DP দিতে চাও তাকে @mention দাও 💖", event.threadID);
+  if (mentions.length === 0) {
+    return api.sendMessage("💖 যাকে Love দিতে চাও তাকে @mention করো।", event.threadID);
   }
 
-  const senderID = event.senderID;
+  const mentionID = mentions[0];
   const name = event.mentions[mentionID];
-  const mentions = [{ id: mentionID, tag: name }];
+  const mentionObjects = [{ id: mentionID, tag: name }];
+  const senderID = event.senderID;
+
+  // API for couple DP (sender + mentioned user)
+  const avatar1 = `https://graph.facebook.com/${senderID}/picture?width=512&height=512`;
+  const avatar2 = `https://graph.facebook.com/${mentionID}/picture?width=512&height=512`;
+
+  const imgUrl = `https://api.popcat.xyz/couple?avatar1=${encodeURIComponent(avatar1)}&avatar2=${encodeURIComponent(avatar2)}`;
+  const path = __dirname + "/cache/love3.png";
 
   try {
-    const avatar1 = `https://graph.facebook.com/${senderID}/picture?width=512&height=512`;
-    const avatar2 = `https://graph.facebook.com/${mentionID}/picture?width=512&height=512`;
-
-    const imgUrl = `https://api.popcat.xyz/couple?avatar1=${encodeURIComponent(avatar1)}&avatar2=${encodeURIComponent(avatar2)}`;
-
-    const path = __dirname + "/cache/couple.png";
-
-    const response = await axios({
-      url: imgUrl,
-      method: "GET",
-      responseType: "stream"
-    });
-
+    const response = await axios({ url: imgUrl, method: "GET", responseType: "stream" });
     const writer = fs.createWriteStream(path);
     response.data.pipe(writer);
 
-    writer.on("finish", () => {
-
-      // 💌 20+ Love Messages
-      const loveMessages = [
+    writer.on("finish", async () => {
+      const messages = [
         `💖 ${name}, তুমি আমার জীবনের সবচেয়ে সুন্দর অনুভূতি...`,
         `🌸 ${name}, তোমাকে ভাবলেই মনটা শান্ত হয়ে যায়...`,
         `💫 ${name}, তুমি না থাকলে আমার দিন অসম্পূর্ণ লাগে...`,
         `🌹 ${name}, তুমি আমার হাসির কারণ...`,
         `💞 ${name}, তোমার সাথে কথা বললেই সব কষ্ট দূরে চলে যায়...`,
-        `✨ ${name}, তুমি আমার ছোট্ট সুখের দুনিয়া...`,
-        `💜 ${name}, তোমার হাসিটা আমার সবচেয়ে প্রিয়...`,
-        `🌙 ${name}, তুমি আমার রাতের স্বপ্ন আর দিনের ভাবনা...`,
-        `🔥 ${name}, তুমি আমার হৃদয়ের একমাত্র special মানুষ...`,
-        `🌺 ${name}, তুমি ছাড়া কিছুই ভালো লাগে না...`,
-        `💘 ${name}, তোমার ভালোবাসায় আমি হারিয়ে যাই...`,
-        `🌷 ${name}, তোমার সাথে কাটানো সময়গুলো সবচেয়ে সুন্দর...`,
-        `💓 ${name}, তুমি আমার heart এর heartbeat...`,
-        `🌼 ${name}, তুমি থাকলেই সবকিছু perfect লাগে...`,
-        `💝 ${name}, তুমি আমার জীবনের সবচেয়ে বড় উপহার...`,
-        `🌹 ${name}, তোমার চোখে আমি আমার পৃথিবী দেখি...`,
-        `💟 ${name}, তোমাকে ছাড়া আমি কিছুই না...`,
-        `🌸 ${name}, তুমি আমার life এর happiness...`,
-        `💗 ${name}, তুমি থাকলেই সব দুঃখ দূরে চলে যায়...`,
-        `✨ ${name}, তুমি আমার dream come true...`,
-        `💞 ${name}, তুমি আমার forever person...`,
-        `🌙 ${name}, তুমি আমার রাতের চাঁদ...`,
-        `💖 ${name}, সবসময় আমার পাশে থেকো plz...`
+        `💌 ${name}, তুমি আমার সবকিছুর আনন্দ...`,
+        `❤️ ${name}, তোমার ছাড়া জীবন ফাঁকা মনে হয়...`,
+        `💘 ${name}, তুমি আমার হৃদয়ের beat...`,
+        `✨ ${name}, তোমার presence সবকিছু সুন্দর করে তোলে...`,
+        `💟 ${name}, তুমি আমার স্বপ্নের অংশ...`,
+        `🌹 ${name}, তোমার স্মৃতি সবসময় পাশে থাকে...`,
+        `💖 ${name}, তোমার জন্য আমার অনুভূতি অনন্ত...`,
+        `💞 ${name}, তুমি আমার motivation...`,
+        `💫 ${name}, তুমি আমার reason to smile...`,
+        `💌 ${name}, তোমার জন্য আমার ভালোবাসা অসীম...`,
+        `🌸 ${name}, তুমি আমার আনন্দের source...`,
+        `❤️ ${name}, তোমার presence life bright করে...`,
+        `💘 ${name}, তুমি আমার lucky charm...`,
+        `✨ ${name}, তুমি সব tension দূরে সরিয়ে দাও...`,
+        `💟 ${name}, তোমার নিয়ে সব সময় খুশি থাকি...`
       ];
 
-      const msg = loveMessages[Math.floor(Math.random() * loveMessages.length)];
+      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
 
       api.sendMessage({
-        body: msg,
-        mentions,
+        body: randomMsg,
+        mentions: mentionObjects,
         attachment: fs.createReadStream(path)
       }, event.threadID, () => fs.unlinkSync(path));
     });
@@ -83,6 +74,6 @@ module.exports.run = async function({ api, event }) {
     });
 
   } catch (err) {
-    api.sendMessage("❌ Error হয়েছে!", event.threadID);
+    api.sendMessage("❌ Error হয়েছে! পুনরায় চেষ্টা করো।", event.threadID);
   }
 };
