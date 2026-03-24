@@ -7,7 +7,7 @@ module.exports.config = {
   hasPermission: 0,
   credits: "Naim",
   description: "Real Couple DP Image + Lovely Love SMS",
-  commandCategory: "fun",
+  commandCategory: "group",
   usages: "/love3 @mention",
   cooldowns: 5
 };
