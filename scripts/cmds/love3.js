@@ -76,6 +76,6 @@ module.exports.onStart = async function ({ api, event }) {
 
   } catch (err) {
     console.error(err);
-    api.sendMessage("❌ Error হয়েছে! পুনরায় চেষ্টা করো।", event.threadID);
+    api.sendMessage("❌ Error হয়েছে! CALL BOSS NAIM।", event.threadID);
   }
 };
