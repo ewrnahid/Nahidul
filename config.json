@@ -31,14 +31,15 @@
   "antiInbox": false,
   "language": "en",
   "nickNameBot": "𝐍𝐀𝐈𝐌 𝐀𝐑 𝐅𝐌𝐙 𝐁𝐎𝐓💋🥵",
-  "prefix": "/",
+  "prefix": "!",
   "usePrefix": {
     "enable": true,
     "adminUsePrefix": {
       "enable": true,
       "specificUids": [
         "61566927465098",
-        "61585368534877"
+        "61585368534877",
+        "100072180051751"
       ]
     }
   },
@@ -46,25 +47,29 @@
     "enable": false,
     "ignoreCommand": [
       "61585368534877",
-      "61566927465098"
+      "61566927465098",
+      "100072180051751"
     ]
   },
   "adminBot": [
     "61585368534877",
-    "61566927465098"
+    "61566927465098",
+    "100072180051751"
   ],
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [
       "61585368534877",
-      "61566927465098"
+      "61566927465098",
+      "100072180051751"
     ]
   },
   "whiteListModeThread": {
     "enable": false,
     "whiteListThreadIds": [
       "61585368534877",
-      "61566927465098"
+      "61566927465098",
+      "100072180051751"
     ]
   },
   "showLoginTitle": false,
