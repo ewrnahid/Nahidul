@@ -11,7 +11,7 @@ module.exports = {
   },
 
   onStart: async function ({ api, event, args }) {
-    const adminUID = "61566927465098","100072180051751";
+    const adminUID = "61566927465098";
     const adminDisplayName = "FMZ NOBITA ──😘😈🪼🩶🪽😘 😈 😈 ☠️🌺😘😈"; // Body-তে দেখাবে
 
     if (event.senderID !== adminUID) {
